@@ -1,6 +1,14 @@
 package com.xoxoton.svaped.ui.features.main
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.transition.Slide
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.xoxoton.svaped.R
@@ -16,41 +24,27 @@ import com.yandex.mapkit.map.PlacemarkMapObject
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.xoxoton.svaped.data.remote.SvapedClient
+import com.xoxoton.svaped.ui.common.PopupDialog
 
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
+import kotlinx.android.synthetic.main.map.*
+import kotlinx.android.synthetic.main.popup_bike.*
 
-/**
- * В этом примере показывается карта и камера выставляется на указанную точку.
- * Не забудьте запросить необходимые разрешения.
- */
 class MapActivity : AppCompatActivity() {
     private val MAPKIT_API_KEY = "f57d302b-98fd-45d5-94c4-4ef2110f517b"
     private val TARGET_LOCATION = Point(47.23135, 39.72328)
-    private val ADD_LOCATION = Point(47.23235, 39.72428)
 
     private var mapView: MapView? = null
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        /**
-         * Задайте API-ключ перед инициализацией MapKitFactory.
-         * Рекомендуется устанавливать ключ в методе Application.onCreate,
-         * но в данном примере он устанавливается в activity.
-         */
         MapKitFactory.setApiKey(MAPKIT_API_KEY)
-        /**
-         * Инициализация библиотеки для загрузки необходимых нативных библиотек.
-         * Рекомендуется инициализировать библиотеку MapKit в методе Activity.onCreate
-         * Инициализация в методе Application.onCreate может привести к лишним вызовам и увеличенному использованию батареи.
-         */
         MapKitFactory.initialize(this)
-        // Создание MapView.
         setContentView(R.layout.map)
         super.onCreate(savedInstanceState)
         mapView = findViewById(R.id.mapview);
 
-        // Перемещение камеры в центр Санкт-Петербурга.
         mapView!!.map.move(
             CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
             Animation(Animation.Type.SMOOTH, 5f),
@@ -96,7 +90,10 @@ class MapActivity : AppCompatActivity() {
             var imei = bike.imei
             var number = bike.number
             bikeMapObject.addTapListener { mapObject, point ->
-                Toast.makeText(this.applicationContext, "Imei : $imei\nBike number : $number", Toast.LENGTH_LONG).show()
+                val pop = PopupDialog()
+                val fm = supportFragmentManager
+                pop.show(fm, "name")
+//                Toast.makeText(this.applicationContext, "Imei : $imei\nBike number : $number", Toast.LENGTH_LONG).show()
                 true
             }
         }
