@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 
 class MainRepository(private val service: SvapedApi) {
 
-    fun getBikesNearby(): Observable<BikeModel> =
+    fun getBikesNearby(): Observable<List<BikeDO>> =
         service.getBikesNearby(
             BIKE_NEARBY_REQUEST_CODE,
             DEFAULT_INDUSTRY_TYPE_VALUE,
@@ -24,6 +24,7 @@ class MainRepository(private val service: SvapedApi) {
             TOKEN, ROSTOV_LAT, ROSTOV_LNG)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .map { it.data }
 
 
     companion object {
