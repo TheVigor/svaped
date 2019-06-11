@@ -1,6 +1,7 @@
 package com.xoxoton.svaped.data.remote
 
 import com.xoxoton.svaped.data.model.BikeDO
+import com.xoxoton.svaped.data.model.BikeModel
 import com.xoxoton.svaped.data.model.CityDO
 import com.xoxoton.svaped.data.model.ParkingPointDO
 import io.reactivex.Completable
@@ -25,7 +26,7 @@ interface SvapedApi {
     @NotNull
     fun getBikeUseInfo(@Query("requestType") paramInt1: Int,
                        @Query("token") @NotNull paramString: String,
-                       @Query("versionCode") paramInt2: Int): Observable<String>
+                       @Query("versionCode") paramInt2: Int): Observable<BikeModel>
 
     @GET("app/bike")
     @NotNull
@@ -35,12 +36,13 @@ interface SvapedApi {
                        @Query("token") @NotNull paramString2: String,
                        @Query("lat") paramDouble1: Double,
                        @Query("lng") paramDouble2: Double
-    ): Observable<List<BikeDO>>
+    ): Observable<BikeModel>
 
     @GET("app/city")
     @NotNull
     fun getCityList(@Query("requestType") paramInt: Int,
-                    @Query("token") @NotNull paramString: String): Observable<List<CityDO>>
+                    @Query("token") @NotNull paramString: String
+    ): Observable<List<CityDO>>
 
     @GET("app/city")
     @NotNull

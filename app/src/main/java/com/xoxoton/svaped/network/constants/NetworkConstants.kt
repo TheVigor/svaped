@@ -14,5 +14,13 @@ object NetworkConstants {
     const val REQUEST_REGISTRATION = "10022"
     const val REQUEST_VERIFICATION_CODE = "50002"
 
-    const val DEFAULT_INDUSTRY_TYPE_VALUE = "7"
+    const val DEFAULT_INDUSTRY_TYPE_VALUE = 7
+
+
+    const val BIKE_NEARBY_REQUEST_CODE = 30001
+    const val BIKE_NEARBY_VERSION = "1.1"
+
+    const val ROSTOV_LAT = 47.23135
+    const val ROSTOV_LNG = 39.72328
+
 }
