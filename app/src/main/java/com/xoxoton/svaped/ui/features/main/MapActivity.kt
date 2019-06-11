@@ -1,15 +1,21 @@
 package com.xoxoton.svaped.ui.features.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.xoxoton.svaped.R
+import com.xoxoton.svaped.data.model.BikeDO
+import com.xoxoton.svaped.data.model.ParkingPointDO
 
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.map.MapObjectTapListener
+import com.yandex.mapkit.map.PlacemarkMapObject
 
 import com.yandex.mapkit.mapview.MapView
+import com.yandex.runtime.image.ImageProvider
 
 /**
  * В этом примере показывается карта и камера выставляется на указанную точку.
@@ -18,6 +24,7 @@ import com.yandex.mapkit.mapview.MapView
 class MapActivity : AppCompatActivity() {
     private val MAPKIT_API_KEY = "f57d302b-98fd-45d5-94c4-4ef2110f517b"
     private val TARGET_LOCATION = Point(47.23135, 39.72328)
+    private val ADD_LOCATION = Point(47.23235, 39.72428)
 
     private var mapView: MapView? = null
 
@@ -46,7 +53,36 @@ class MapActivity : AppCompatActivity() {
             null
         )
 
-        mapView!!.map.mapObjects.addPlacemark(TARGET_LOCATION)
+        var imageProviderBike = ImageProvider.fromResource(this, R.mipmap.bike_marker)
+        var imageProviderParking = ImageProvider.fromResource(this, R.mipmap.parking_marker)
+        var placemarkMapObject1 = mapView!!.map.mapObjects.addPlacemark(TARGET_LOCATION, imageProviderBike)
+        var placemarkMapObject2 = mapView!!.map.mapObjects.addPlacemark(ADD_LOCATION, imageProviderParking)
+        placemarkMapObject1.addTapListener { mapObject, point ->
+            Toast.makeText(this.applicationContext, "IMEI and phone", Toast.LENGTH_LONG).show()
+            true
+        }
+    }
+
+    fun showBikes(bikes: List<BikeDO>) {
+        var imageProviderBike = ImageProvider.fromResource(this, R.mipmap.bike_marker)
+        for (bike in bikes) {
+            var bikeMapObject = mapView!!.map.mapObjects.addPlacemark(TARGET_LOCATION, imageProviderBike)
+            bikeMapObject.addTapListener { mapObject, point ->
+                Toast.makeText(this.applicationContext, bike.imei + "; " + bike.number, Toast.LENGTH_LONG).show()
+                true
+            }
+        }
+    }
+
+    fun showParkings(parkings: List<ParkingPointDO>) {
+        var parkingProviderBike = ImageProvider.fromResource(this, R.mipmap.parking_marker)
+        for (parking in parkings) {
+            var parkingMapObject = mapView!!.map.mapObjects.addPlacemark(TARGET_LOCATION, parkingProviderBike)
+            parkingMapObject.addTapListener { mapObject, point ->
+                Toast.makeText(this.applicationContext, parking.name + "; " + parking.note, Toast.LENGTH_LONG).show()
+                true
+            }
+        }
     }
 
     override fun onStop() {
