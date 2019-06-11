@@ -1,4 +1,4 @@
-package com.xoxoton.svaped
+package com.xoxoton.svaped.ui
 
 import android.app.Application
 import android.content.Context
