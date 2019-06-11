@@ -16,6 +16,9 @@ import com.yandex.mapkit.map.PlacemarkMapObject
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.xoxoton.svaped.data.remote.SvapedClient
+import com.xoxoton.svaped.ui.features.parking.ParkingRepository
+import com.xoxoton.svaped.ui.features.parking.ParkingViewModel
+import com.xoxoton.svaped.ui.features.parking.ParkingViewModelFactory
 
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
@@ -31,6 +34,8 @@ class MapActivity : AppCompatActivity() {
 
     private var mapView: MapView? = null
     private lateinit var mainViewModel: MainViewModel
+
+    private lateinit var parkingViewModel: ParkingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         /**
@@ -57,6 +62,12 @@ class MapActivity : AppCompatActivity() {
             null
         )
 
+        initMainViewModel()
+        initParkingViewModel()
+
+    }
+
+    fun initMainViewModel() {
         mainViewModel = ViewModelProviders.of(this, MoviesViewModelFactory(
             MainRepository.getInstance(SvapedClient.getInstance())))
             .get(MainViewModel::class.java)
@@ -87,6 +98,39 @@ class MapActivity : AppCompatActivity() {
 
         mainViewModel.getBikesNearby()
     }
+
+    fun initParkingViewModel() {
+        parkingViewModel = ViewModelProviders.of(this, ParkingViewModelFactory(
+            ParkingRepository.getInstance(SvapedClient.getInstance())))
+            .get(ParkingViewModel::class.java)
+
+        parkingViewModel.loadingState.observe(this,
+            Observer { state ->
+                state?.let {
+                    //progressBar.visibility = if (state) View.VISIBLE else View.GONE
+                    //showToast("Loading...")
+                }
+            })
+
+        parkingViewModel.errorState.observe(this,
+            Observer { code ->
+                code?.let {
+                    //emptyView.visibility = View.VISIBLE
+                    //emptyView.setMode(code)
+                    //showToast("Error")
+                }
+            })
+
+        parkingViewModel.contentState.observe(this,
+            Observer { content ->
+                if (content != null) {
+                    showParkings(content)
+                }
+            })
+
+        parkingViewModel.getParkingPoints()
+    }
+
 
     fun showBikes(bikes: List<BikeDO>) {
         var imageProviderBike = ImageProvider.fromResource(this, R.mipmap.bike_marker)

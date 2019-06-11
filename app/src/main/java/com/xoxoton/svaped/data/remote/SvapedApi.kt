@@ -1,9 +1,6 @@
 package com.xoxoton.svaped.data.remote
 
-import com.xoxoton.svaped.data.model.BikeDO
-import com.xoxoton.svaped.data.model.BikeModel
-import com.xoxoton.svaped.data.model.CityDO
-import com.xoxoton.svaped.data.model.ParkingPointDO
+import com.xoxoton.svaped.data.model.*
 import io.reactivex.Completable
 import io.reactivex.Observable
 import org.jetbrains.annotations.NotNull
@@ -57,7 +54,7 @@ interface SvapedApi {
         @Query("requestType") paramInt: Int,
         @Query("token") @NotNull paramString: String,
         @Query("lat") paramDouble1: Double,
-        @Query("lng") paramDouble2: Double): Observable<List<ParkingPointDO>>
+        @Query("lng") paramDouble2: Double): Observable<ParkingPointModel>
 
     @GET("json")
     @NotNull
