@@ -13,6 +13,9 @@ import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.map.PlacemarkMapObject
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.xoxoton.svaped.data.remote.SvapedClient
 
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
@@ -27,6 +30,7 @@ class MapActivity : AppCompatActivity() {
     private val ADD_LOCATION = Point(47.23235, 39.72428)
 
     private var mapView: MapView? = null
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         /**
@@ -53,22 +57,46 @@ class MapActivity : AppCompatActivity() {
             null
         )
 
-        var imageProviderBike = ImageProvider.fromResource(this, R.mipmap.bike_marker)
-        var imageProviderParking = ImageProvider.fromResource(this, R.mipmap.parking_marker)
-        var placemarkMapObject1 = mapView!!.map.mapObjects.addPlacemark(TARGET_LOCATION, imageProviderBike)
-        var placemarkMapObject2 = mapView!!.map.mapObjects.addPlacemark(ADD_LOCATION, imageProviderParking)
-        placemarkMapObject1.addTapListener { mapObject, point ->
-            Toast.makeText(this.applicationContext, "IMEI and phone", Toast.LENGTH_LONG).show()
-            true
-        }
+        mainViewModel = ViewModelProviders.of(this, MoviesViewModelFactory(
+            MainRepository.getInstance(SvapedClient.getInstance())))
+            .get(MainViewModel::class.java)
+
+        mainViewModel.loadingState.observe(this,
+            Observer { state ->
+                state?.let {
+                    //progressBar.visibility = if (state) View.VISIBLE else View.GONE
+                    //showToast("Loading...")
+                }
+            })
+
+        mainViewModel.errorState.observe(this,
+            Observer { code ->
+                code?.let {
+                    //emptyView.visibility = View.VISIBLE
+                    //emptyView.setMode(code)
+                    //showToast("Error")
+                }
+            })
+
+        mainViewModel.contentState.observe(this,
+            Observer { content ->
+                if (content != null) {
+                    showBikes(content)
+                }
+            })
+
+        mainViewModel.getBikesNearby()
     }
 
     fun showBikes(bikes: List<BikeDO>) {
         var imageProviderBike = ImageProvider.fromResource(this, R.mipmap.bike_marker)
         for (bike in bikes) {
-            var bikeMapObject = mapView!!.map.mapObjects.addPlacemark(TARGET_LOCATION, imageProviderBike)
+            var p = Point(bike.latitude, bike.longitude)
+            var bikeMapObject = mapView!!.map.mapObjects.addPlacemark(p, imageProviderBike)
+            var imei = bike.imei
+            var number = bike.number
             bikeMapObject.addTapListener { mapObject, point ->
-                Toast.makeText(this.applicationContext, bike.imei + "; " + bike.number, Toast.LENGTH_LONG).show()
+                Toast.makeText(this.applicationContext, "Imei : $imei\nBike number : $number", Toast.LENGTH_LONG).show()
                 true
             }
         }
@@ -77,9 +105,12 @@ class MapActivity : AppCompatActivity() {
     fun showParkings(parkings: List<ParkingPointDO>) {
         var parkingProviderBike = ImageProvider.fromResource(this, R.mipmap.parking_marker)
         for (parking in parkings) {
-            var parkingMapObject = mapView!!.map.mapObjects.addPlacemark(TARGET_LOCATION, parkingProviderBike)
+            var p = Point(parking.latitude, parking.longitude)
+            var parkingMapObject = mapView!!.map.mapObjects.addPlacemark(p, parkingProviderBike)
             parkingMapObject.addTapListener { mapObject, point ->
-                Toast.makeText(this.applicationContext, parking.name + "; " + parking.note, Toast.LENGTH_LONG).show()
+                var name = parking.name
+                var note = parking.note
+                Toast.makeText(this.applicationContext, "Name : $name\nNote : $note", Toast.LENGTH_LONG).show()
                 true
             }
         }

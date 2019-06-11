@@ -13,8 +13,6 @@ import com.xoxoton.svaped.ui.extensions.showToast
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,36 +23,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, MapActivity::class.java)
             startActivity(intent)
         }
-
-        mainViewModel = ViewModelProviders.of(this, MoviesViewModelFactory(
-            MainRepository.getInstance(SvapedClient.getInstance())))
-            .get(MainViewModel::class.java)
-
-        mainViewModel.loadingState.observe(this,
-            Observer { state ->
-                state?.let {
-                    //progressBar.visibility = if (state) View.VISIBLE else View.GONE
-                    //showToast("Loading...")
-                }
-            })
-
-        mainViewModel.errorState.observe(this,
-            Observer { code ->
-                code?.let {
-                    //emptyView.visibility = View.VISIBLE
-                    //emptyView.setMode(code)
-                    //showToast("Error")
-                }
-            })
-
-        mainViewModel.contentState.observe(this,
-            Observer { content ->
-                if (content != null) {
-                    showToast("Bikes count: " + content.size.toString())
-                }
-            })
-
-        mainViewModel.getBikesNearby()
-
     }
 }
