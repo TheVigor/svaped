@@ -19,6 +19,7 @@ object NetworkConstants {
 
     const val BIKE_NEARBY_REQUEST_CODE = 30001
     const val GET_PARKING_POINTS_REQUEST_CODE = 30014
+    const val LOGIN_REQUEST_CODE = 10001
 
 
     const val BIKE_NEARBY_VERSION = "1.1"
