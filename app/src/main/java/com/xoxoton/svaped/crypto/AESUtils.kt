@@ -12,13 +12,13 @@ import javax.crypto.NoSuchPaddingException
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-object AESUtil {
-    val BM = "utf-8"
-    val PHONE_KEY = "388E9E7574D8A2B3"
-    val REGISTER_KEY = "a2d6e65fd5472650"
-    val PADDING_CONFIG = "AES/CBC/PKCS5Padding"
+object AESUtils {
+    const val BM = "utf-8"
+    const val PHONE_KEY = "388E9E7574D8A2B3"
+    const val REGISTER_KEY = "a2d6e65fd5472650"
+    const val PADDING_CONFIG = "AES/CBC/PKCS5Padding"
     val VIPARA = "68C451BFF1BBCDE3".toByteArray()
-    val AES_ALGORYTHM_NAME = "AES"
+    const val AES_ALGORYTHM_NAME = "AES"
 
     fun aesDecrypt(paramString1: String, paramString2: String): String? {
         try {
