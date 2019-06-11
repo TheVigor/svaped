@@ -1,7 +1,8 @@
-package com.xoxoton.svaped
+package com.xoxoton.svaped.ui.features.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.xoxoton.svaped.R
 
 class MainActivity : AppCompatActivity() {
 
