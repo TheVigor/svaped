@@ -63,7 +63,7 @@ interface SvapedApi {
         @Query("token") @NotNull paramString: String,
         @Query("lat") paramDouble1: Double,
         @Query("lng") paramDouble2: Double
-    ): Observable<List<ParkingPointDO>>
+    ): Observable<ParkingPointModel>
 
     @GET("json")
     @NotNull

@@ -11,8 +11,6 @@ object NetworkConstants {
     const val KEY_PHONE_CODE = "phoneCode"
     const val KEY_REQUEST_TYPE = "requestType"
 
-    const val TOKEN = ""
-
     const val REQUEST_PHONE_CONFIRMATION = "10023"
     const val REQUEST_REGISTRATION = "10022"
     const val REQUEST_VERIFICATION_CODE = "50002"

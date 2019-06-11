@@ -68,7 +68,7 @@ class MapActivity : AppCompatActivity() {
     }
 
     fun initMainViewModel() {
-        mainViewModel = ViewModelProviders.of(this, MoviesViewModelFactory(
+        mainViewModel = ViewModelProviders.of(this, MainViewModelFactory(
             MainRepository.getInstance(SvapedClient.getInstance())))
             .get(MainViewModel::class.java)
 
