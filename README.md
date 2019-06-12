@@ -5,6 +5,6 @@ During the one-day SVA hackathon, the application "Lucky Bike" (https://play.goo
 Proof of concept
 ===============
 
-<a href="pics/01.png"><img src="pics/01.png" width="30%"/></a> 
-<a href="pics/02.png"><img src="pics/02.png" width="30%"/></a> 
-<a href="pics/03.png"><img src="pics/03.png" width="30%"/></a>
+<a href="pics/1.png"><img src="pics/1.png" width="30%"/></a> 
+<a href="pics/2.png"><img src="pics/2.png" width="30%"/></a> 
+<a href="pics/3.png"><img src="pics/3.png" width="30%"/></a>
