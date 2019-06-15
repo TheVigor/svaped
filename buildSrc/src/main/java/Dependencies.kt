@@ -41,6 +41,10 @@ object Versions {
     val retrofitRxJava = "2.5.0"
 
     val yandexMapKit = "3.3.1"
+
+    val okHttp = "3.12.1"
+
+    val koin = "2.0.0"
 }
 
 object Libs {
@@ -56,6 +60,11 @@ object Libs {
     val yandexPlaces = "com.yandex.android:places:${Versions.yandexMapKit}"
     val yandexSearch = "com.yandex.android:search:${Versions.yandexMapKit}"
     val yandexTransport = "com.yandex.android:transport:${Versions.yandexMapKit}"
+
+    val httpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
+
+    val koin = "org.koin:koin-android:${Versions.koin}"
+    val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koin}"
 }
 
 object KotlinLibs {

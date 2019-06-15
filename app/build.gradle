@@ -57,6 +57,12 @@ dependencies {
     implementation Libs.yandexSearch
     implementation Libs.yandexTransport
 
+    implementation Libs.koin
+    implementation Libs.koinViewModel
+
+    implementation Libs.httpLoggingInterceptor
+
+
     testImplementation TestLibs.junit
     androidTestImplementation TestLibs.androidTestRunner
     androidTestImplementation TestLibs.espresso
