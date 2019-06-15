@@ -15,13 +15,13 @@ import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.map.PlacemarkMapObject
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.xoxoton.svaped.data.remote.SvapedClient
 import com.xoxoton.svaped.ui.features.parking.ParkingRepository
 import com.xoxoton.svaped.ui.features.parking.ParkingViewModel
 import com.xoxoton.svaped.ui.features.parking.ParkingViewModelFactory
 
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * В этом примере показывается карта и камера выставляется на указанную точку.
@@ -33,9 +33,9 @@ class MapActivity : AppCompatActivity() {
     private val ADD_LOCATION = Point(47.23235, 39.72428)
 
     private var mapView: MapView? = null
-    private lateinit var mainViewModel: MainViewModel
 
-    private lateinit var parkingViewModel: ParkingViewModel
+    val mainViewModel: MainViewModel by viewModel()
+    val parkingViewModel: ParkingViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         /**
@@ -68,10 +68,6 @@ class MapActivity : AppCompatActivity() {
     }
 
     fun initMainViewModel() {
-        mainViewModel = ViewModelProviders.of(this, MainViewModelFactory(
-            MainRepository.getInstance(SvapedClient.getInstance())))
-            .get(MainViewModel::class.java)
-
         mainViewModel.loadingState.observe(this,
             Observer { state ->
                 state?.let {
@@ -100,10 +96,6 @@ class MapActivity : AppCompatActivity() {
     }
 
     fun initParkingViewModel() {
-        parkingViewModel = ViewModelProviders.of(this, ParkingViewModelFactory(
-            ParkingRepository.getInstance(SvapedClient.getInstance())))
-            .get(ParkingViewModel::class.java)
-
         parkingViewModel.loadingState.observe(this,
             Observer { state ->
                 state?.let {
