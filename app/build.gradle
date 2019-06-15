@@ -33,31 +33,31 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    implementation KotlinLibs.kotlin
 
-    implementation "com.google.android.material:material:${Versions.material}"
+    implementation AndroidLibs.material
 
-    implementation "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
-    kapt "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycleCompiler}"
+    implementation AndroidLibs.lifecycleExtensions
+    kapt AndroidLibs.lifecycleCompiler
 
-    implementation "androidx.appcompat:appcompat:${Versions.appCompat}"
-    implementation "androidx.core:core-ktx:${Versions.coreKtx}"
-    implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    implementation AndroidLibs.appCompat
+    implementation AndroidLibs.coreKtx
+    implementation AndroidLibs.constraintLayout
 
-    testImplementation "junit:junit:${Versions.junit}"
-    androidTestImplementation "androidx.test:runner:${Versions.androidTestRunner}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    implementation Libs.rxKotlin
+    implementation Libs.rxAndroid
 
-    implementation "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
-    implementation "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
+    implementation Libs.retrofit
+    implementation Libs.retrofitGsonConverter
+    implementation Libs.retrofitRxJava
 
-    implementation "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${Versions.retrofitGson}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofitRxJava}"
+    implementation Libs.yandexMapKit
+    implementation Libs.yandexDirections
+    implementation Libs.yandexPlaces
+    implementation Libs.yandexSearch
+    implementation Libs.yandexTransport
 
-    implementation "com.yandex.android:mapkit:${Versions.yandexMapKit}"
-    implementation "com.yandex.android:directions:${Versions.yandexMapKit}"
-    implementation "com.yandex.android:places:${Versions.yandexMapKit}"
-    implementation "com.yandex.android:search:${Versions.yandexMapKit}"
-    implementation "com.yandex.android:transport:${Versions.yandexMapKit}"
+    testImplementation TestLibs.junit
+    androidTestImplementation TestLibs.androidTestRunner
+    androidTestImplementation TestLibs.espresso
 }

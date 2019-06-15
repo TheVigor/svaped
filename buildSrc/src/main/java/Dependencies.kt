@@ -42,3 +42,42 @@ object Versions {
 
     val yandexMapKit = "3.3.1"
 }
+
+object Libs {
+    val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofitGson}"
+    val retrofitRxJava = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofitRxJava}"
+
+    val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
+    val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
+
+    val yandexMapKit = "com.yandex.android:mapkit:${Versions.yandexMapKit}"
+    val yandexDirections = "com.yandex.android:directions:${Versions.yandexMapKit}"
+    val yandexPlaces = "com.yandex.android:places:${Versions.yandexMapKit}"
+    val yandexSearch = "com.yandex.android:search:${Versions.yandexMapKit}"
+    val yandexTransport = "com.yandex.android:transport:${Versions.yandexMapKit}"
+}
+
+object KotlinLibs {
+    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+}
+
+object AndroidLibs {
+    val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
+    val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
+    val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+
+    val material = "com.google.android.material:material:${Versions.material}"
+
+    val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
+    val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycleCompiler}"
+}
+
+object TestLibs {
+    val junit = "junit:junit:${Versions.junit}"
+
+    val androidTestRunner = "androidx.test:runner:${Versions.androidTestRunner}"
+    val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    val espressoContrib = "androidx.test.espresso:espresso-contrib:${Versions.espressoCore}"
+}
+
