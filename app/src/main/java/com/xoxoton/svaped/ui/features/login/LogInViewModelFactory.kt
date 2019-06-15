@@ -2,8 +2,8 @@ package com.xoxoton.svaped.ui.features.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.xoxoton.svaped.ui.features.main.login.LogInViewModel
-import com.xoxoton.svaped.ui.features.main.login.LoginRepository
+import com.xoxoton.svaped.ui.features.login.LogInViewModel
+import com.xoxoton.svaped.ui.features.login.LoginRepository
 
 @Suppress("UNCHECKED_CAST")
 class LogInViewModelFactory(private val repository: LoginRepository) : ViewModelProvider.Factory {

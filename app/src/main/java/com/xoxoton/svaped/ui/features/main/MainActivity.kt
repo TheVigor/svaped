@@ -4,13 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.xoxoton.svaped.R
-import com.xoxoton.svaped.data.remote.SvapedClient
 import android.widget.Button
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.xoxoton.svaped.network.constants.NetworkConstants
-import com.xoxoton.svaped.ui.extensions.showToast
-import com.xoxoton.svaped.ui.features.main.login.LogInActivity
+import com.xoxoton.svaped.ui.features.login.LogInActivity
 
 class MainActivity : AppCompatActivity() {
 

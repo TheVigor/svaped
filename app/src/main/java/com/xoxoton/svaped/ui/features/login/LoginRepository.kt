@@ -1,4 +1,4 @@
-package com.xoxoton.svaped.ui.features.main.login
+package com.xoxoton.svaped.ui.features.login
 
 import com.xoxoton.svaped.data.remote.SvapedApi
 import com.xoxoton.svaped.network.constants.NetworkConstants.LOGIN_REQUEST_CODE

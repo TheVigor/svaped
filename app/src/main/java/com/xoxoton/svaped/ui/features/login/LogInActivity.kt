@@ -1,4 +1,4 @@
-package com.xoxoton.svaped.ui.features.main.login
+package com.xoxoton.svaped.ui.features.login
 
 import android.content.Intent
 import android.os.Bundle

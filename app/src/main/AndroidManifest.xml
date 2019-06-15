@@ -13,7 +13,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name="com.xoxoton.svaped.ui.features.main.login.LogInActivity"/>
+        <activity android:name="com.xoxoton.svaped.ui.features.login.LogInActivity"/>
         <activity
                 android:name=".ui.features.main.MapActivity"
                 android:label="@string/title_activity_map"
