@@ -7,6 +7,7 @@ import com.xoxoton.svaped.R
 import android.widget.Button
 import com.xoxoton.svaped.data.local.AuthPrefs
 import com.xoxoton.svaped.ui.features.login.LogInActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -23,16 +24,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         activateHandlers()
-
     }
 
     private fun activateHandlers() {
-        val btn = findViewById<Button>(R.id.map_button)
-
-        btn.setOnClickListener{
-            val intent = Intent(this@MainActivity, MapActivity::class.java)
-            startActivity(intent)
+        map_button.setOnClickListener{
+            startActivity(Intent(this@MainActivity, MapActivity::class.java))
         }
-
     }
 }

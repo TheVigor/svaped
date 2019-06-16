@@ -16,6 +16,7 @@ import com.xoxoton.svaped.ui.features.parking.ParkingViewModel
 
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
+import kotlinx.android.synthetic.main.map.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -24,34 +25,21 @@ import org.koin.android.viewmodel.ext.android.viewModel
  */
 class MapActivity : AppCompatActivity() {
     private val MAPKIT_API_KEY = "f57d302b-98fd-45d5-94c4-4ef2110f517b"
+
     private val TARGET_LOCATION = Point(47.23135, 39.72328)
     private val ADD_LOCATION = Point(47.23235, 39.72428)
-
-    private var mapView: MapView? = null
 
     val mainViewModel: MainViewModel by viewModel()
     val parkingViewModel: ParkingViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        /**
-         * Задайте API-ключ перед инициализацией MapKitFactory.
-         * Рекомендуется устанавливать ключ в методе Application.onCreate,
-         * но в данном примере он устанавливается в activity.
-         */
         MapKitFactory.setApiKey(MAPKIT_API_KEY)
-        /**
-         * Инициализация библиотеки для загрузки необходимых нативных библиотек.
-         * Рекомендуется инициализировать библиотеку MapKit в методе Activity.onCreate
-         * Инициализация в методе Application.onCreate может привести к лишним вызовам и увеличенному использованию батареи.
-         */
         MapKitFactory.initialize(this)
-        // Создание MapView.
+
         setContentView(R.layout.map)
         super.onCreate(savedInstanceState)
-        mapView = findViewById(R.id.mapview);
 
-        // Перемещение камеры в центр Санкт-Петербурга.
-        mapView!!.map.move(
+        map_view.map.move(
             CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
             Animation(Animation.Type.SMOOTH, 5f),
             null
@@ -117,30 +105,32 @@ class MapActivity : AppCompatActivity() {
 
         parkingViewModel.getParkingPoints()
     }
-
-
+    
     fun showBikes(bikes: List<BikeDO>) {
-        var imageProviderBike = ImageProvider.fromResource(this, R.mipmap.bike_marker)
-        for (bike in bikes) {
-            var p = Point(bike.latitude, bike.longitude)
-            var bikeMapObject = mapView!!.map.mapObjects.addPlacemark(p, imageProviderBike)
-            var imei = bike.imei
-            var number = bike.number
+        val imageProviderBike = ImageProvider.fromResource(this, R.mipmap.bike_marker)
+
+        bikes.forEach {
+            val p = Point(it.latitude, it.longitude)
+            val bikeMapObject = map_view.map.mapObjects.addPlacemark(p, imageProviderBike)
+            val imei = it.imei
+            val number = it.number
             bikeMapObject.addTapListener { mapObject, point ->
                 Toast.makeText(this.applicationContext, "Imei : $imei\nBike number : $number", Toast.LENGTH_LONG).show()
                 true
             }
         }
+
     }
 
     fun showParkings(parkings: List<ParkingPointDO>) {
-        var parkingProviderBike = ImageProvider.fromResource(this, R.mipmap.parking_marker)
-        for (parking in parkings) {
-            var p = Point(parking.latitude, parking.longitude)
-            var parkingMapObject = mapView!!.map.mapObjects.addPlacemark(p, parkingProviderBike)
+        val parkingProviderBike = ImageProvider.fromResource(this, R.mipmap.parking_marker)
+
+        parkings.forEach {
+            val p = Point(it.latitude, it.longitude)
+            val parkingMapObject = map_view.map.mapObjects.addPlacemark(p, parkingProviderBike)
             parkingMapObject.addTapListener { mapObject, point ->
-                var name = parking.name
-                var note = parking.note
+                val name = it.name
+                val note = it.note
                 Toast.makeText(this.applicationContext, "Name : $name\nNote : $note", Toast.LENGTH_LONG).show()
                 true
             }
@@ -148,16 +138,14 @@ class MapActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
-        // Вызов onStop нужно передавать инстансам MapView и MapKit.
-        mapView!!.onStop()
+        map_view.onStop()
         MapKitFactory.getInstance().onStop()
         super.onStop()
     }
 
     override fun onStart() {
-        // Вызов onStart нужно передавать инстансам MapView и MapKit.
         super.onStart()
         MapKitFactory.getInstance().onStart()
-        mapView!!.onStart()
+        map_view.onStart()
     }
 }
