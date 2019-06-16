@@ -5,21 +5,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.xoxoton.svaped.R
 import android.widget.Button
-import com.xoxoton.svaped.network.constants.NetworkConstants
+import com.xoxoton.svaped.data.local.AuthPrefs
 import com.xoxoton.svaped.ui.features.login.LogInActivity
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
+
+    val authPrefs: AuthPrefs by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (NetworkConstants.token.isEmpty()) {
-            val intent = Intent(applicationContext, LogInActivity::class.java)
-            startActivityForResult(intent, 0)
+
+        if (!authPrefs.isUserLoggedIn()) {
+            startActivity(Intent(this, LogInActivity::class.java))
             finish()
-        } else {
-            activateHandlers()
         }
+
+        activateHandlers()
+
     }
 
     private fun activateHandlers() {

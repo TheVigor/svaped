@@ -1,7 +1,6 @@
 package com.xoxoton.svaped.network.constants
 
 object NetworkConstants {
-    var token = ""
     const val API_BASE_URL = "http://server.luckybike.co:8088/LuckyBike/"
     const val KEY_CODE = "code"
     const val KEY_INDUSTRY_ID = "industryId"

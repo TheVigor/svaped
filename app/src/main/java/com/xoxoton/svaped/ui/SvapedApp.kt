@@ -1,10 +1,7 @@
 package com.xoxoton.svaped.ui
 
 import android.app.Application
-import com.xoxoton.svaped.di.loginModule
-import com.xoxoton.svaped.di.mainModule
-import com.xoxoton.svaped.di.parkingModule
-import com.xoxoton.svaped.di.remoteModule
+import com.xoxoton.svaped.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -19,6 +16,7 @@ class SvapedApp: Application() {
             androidContext(this@SvapedApp)
 
             modules(listOf(
+                localModule(),
                 remoteModule(),
                 loginModule(),
                 mainModule(),

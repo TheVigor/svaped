@@ -1,5 +1,6 @@
 package com.xoxoton.svaped.ui.features.login
 
+import com.xoxoton.svaped.data.local.AuthPrefs
 import com.xoxoton.svaped.data.remote.SvapedApi
 import com.xoxoton.svaped.network.constants.NetworkConstants.LOGIN_REQUEST_CODE
 import io.reactivex.Observable
@@ -7,7 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.security.MessageDigest
 
-class LoginRepository(private val service: SvapedApi) {
+class LoginRepository(private val service: SvapedApi, val authPrefs: AuthPrefs) {
     fun prepareLogInParams(phone: String, password: String): HashMap<String, String> {
         val md = MessageDigest.getInstance("MD5")
         val hashedPass = md.digest(password.toByteArray())
@@ -31,17 +32,4 @@ class LoginRepository(private val service: SvapedApi) {
                 it.data.token
             }
 
-
-    companion object {
-        @Volatile
-        private var INSTANCE: LoginRepository? = null
-
-        fun getInstance(service: SvapedApi): LoginRepository {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: LoginRepository(service).also {
-                    INSTANCE = it
-                }
-            }
-        }
-    }
 }

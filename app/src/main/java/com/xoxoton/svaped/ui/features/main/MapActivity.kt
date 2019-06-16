@@ -11,13 +11,8 @@ import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
-import com.yandex.mapkit.map.MapObjectTapListener
-import com.yandex.mapkit.map.PlacemarkMapObject
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import com.xoxoton.svaped.ui.features.parking.ParkingRepository
 import com.xoxoton.svaped.ui.features.parking.ParkingViewModel
-import com.xoxoton.svaped.ui.features.parking.ParkingViewModelFactory
 
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider

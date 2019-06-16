@@ -22,10 +22,8 @@ class LogInActivity : AppCompatActivity() {
         logInViewModel.contentState.observe(
             this,
             Observer { content ->
-                NetworkConstants.token = content
-                setResult(ActivityResults.LOGIN_SUCCESS)
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                logInViewModel.repository.authPrefs.authToken = content
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             })
         logInViewModel.errorState.observe(this,

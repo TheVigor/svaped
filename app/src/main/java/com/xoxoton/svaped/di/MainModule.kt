@@ -8,7 +8,7 @@ import org.koin.dsl.module
 fun mainModule() = module {
 
     single {
-        MainRepository(get())
+        MainRepository(get(), get())
     }
 
     viewModel {

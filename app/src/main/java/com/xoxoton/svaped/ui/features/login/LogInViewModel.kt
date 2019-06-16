@@ -5,7 +5,7 @@ import com.xoxoton.svaped.ui.base.BaseViewModel
 import com.xoxoton.svaped.ui.common.SingleLiveEvent
 import com.xoxoton.svaped.ui.error.EmptyViewMode
 
-class LogInViewModel(private val repository: LoginRepository) : BaseViewModel() {
+class LogInViewModel(val repository: LoginRepository) : BaseViewModel() {
     private var _loadingState = SingleLiveEvent<Boolean>()
     val loadingState: LiveData<Boolean>
         get() = _loadingState

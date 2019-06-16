@@ -8,7 +8,7 @@ import org.koin.dsl.module
 fun parkingModule() = module {
 
     single {
-        ParkingRepository(get())
+        ParkingRepository(get(), get())
     }
 
     viewModel {
