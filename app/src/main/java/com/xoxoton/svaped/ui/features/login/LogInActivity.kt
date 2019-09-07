@@ -8,9 +8,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.xoxoton.svaped.R
-import com.xoxoton.svaped.network.constants.NetworkConstants
 import com.xoxoton.svaped.ui.extensions.showToast
-import com.xoxoton.svaped.ui.features.main.ActivityResults
 import com.xoxoton.svaped.ui.features.main.MainActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
