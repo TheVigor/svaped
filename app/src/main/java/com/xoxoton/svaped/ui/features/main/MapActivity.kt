@@ -12,6 +12,7 @@ import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import androidx.lifecycle.Observer
+import com.xoxoton.svaped.data.model.BikeCategory
 import com.xoxoton.svaped.ui.features.parking.ParkingViewModel
 
 import com.yandex.mapkit.mapview.MapView
@@ -19,18 +20,24 @@ import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.map.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-/**
- * В этом примере показывается карта и камера выставляется на указанную точку.
- * Не забудьте запросить необходимые разрешения.
- */
 class MapActivity : AppCompatActivity() {
-    private val MAPKIT_API_KEY = "f57d302b-98fd-45d5-94c4-4ef2110f517b"
 
-    private val TARGET_LOCATION = Point(47.23135, 39.72328)
-    private val ADD_LOCATION = Point(47.23235, 39.72428)
+    companion object {
+        private const val MAPKIT_API_KEY = "f57d302b-98fd-45d5-94c4-4ef2110f517b"
+        private val TARGET_LOCATION = Point(47.23135, 39.72328)
 
-    val mainViewModel: MainViewModel by viewModel()
-    val parkingViewModel: ParkingViewModel by viewModel()
+        private const val GREEN_CATEGORY_ZINDEX = 10f
+        private const val YELLOW_CATEGORY_ZINDEX = 20f
+        private const val RED_CATEGORY_ZINDEX = 30f
+
+    }
+
+    private val mainViewModel: MainViewModel by viewModel()
+    private val parkingViewModel: ParkingViewModel by viewModel()
+
+    private lateinit var greenBikeIcon: ImageProvider
+    private lateinit var yellowBikeIcon: ImageProvider
+    private lateinit var redBikeIcon: ImageProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         MapKitFactory.setApiKey(MAPKIT_API_KEY)
@@ -48,6 +55,21 @@ class MapActivity : AppCompatActivity() {
         initMainViewModel()
         initParkingViewModel()
 
+        greenBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_green_bike)
+        yellowBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_yellow_bike)
+        redBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_red_bike)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MapKitFactory.getInstance().onStart()
+        map_view.onStart()
+    }
+
+    override fun onStop() {
+        map_view.onStop()
+        MapKitFactory.getInstance().onStop()
+        super.onStop()
     }
 
     fun initMainViewModel() {
@@ -105,13 +127,26 @@ class MapActivity : AppCompatActivity() {
 
         parkingViewModel.getParkingPoints()
     }
-    
+
+    fun getPlacemarkInfoByCategory(category: BikeCategory): Pair<ImageProvider, Float> {
+        return when(category) {
+            BikeCategory.GREEN -> greenBikeIcon to GREEN_CATEGORY_ZINDEX
+            BikeCategory.YELLOW -> yellowBikeIcon to YELLOW_CATEGORY_ZINDEX
+            BikeCategory.RED -> redBikeIcon to RED_CATEGORY_ZINDEX
+        }
+    }
+
     fun showBikes(bikes: List<BikeDO>) {
         val imageProviderBike = ImageProvider.fromResource(this, R.mipmap.bike_marker)
 
         bikes.forEach {
             val p = Point(it.latitude, it.longitude)
-            val bikeMapObject = map_view.map.mapObjects.addPlacemark(p, imageProviderBike)
+
+            val placemarkInfo = getPlacemarkInfoByCategory(it.getBikeCategory())
+
+            val bikeMapObject = map_view.map.mapObjects.addPlacemark(p, placemarkInfo.first)
+            bikeMapObject.zIndex = placemarkInfo.second
+
             val imei = it.imei
             val number = it.number
             bikeMapObject.addTapListener { mapObject, point ->
@@ -135,17 +170,5 @@ class MapActivity : AppCompatActivity() {
                 true
             }
         }
-    }
-
-    override fun onStop() {
-        map_view.onStop()
-        MapKitFactory.getInstance().onStop()
-        super.onStop()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        MapKitFactory.getInstance().onStart()
-        map_view.onStart()
     }
 }
