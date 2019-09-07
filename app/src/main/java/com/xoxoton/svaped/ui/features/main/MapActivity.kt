@@ -41,7 +41,7 @@ class MapActivity : AppCompatActivity() {
 
         map_view.map.move(
             CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
-            Animation(Animation.Type.SMOOTH, 5f),
+            Animation(Animation.Type.SMOOTH, 0.1f),
             null
         )
 
