@@ -13,6 +13,7 @@ import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import androidx.lifecycle.Observer
 import com.xoxoton.svaped.data.model.BikeCategory
+import com.xoxoton.svaped.ui.base.BaseActivity
 import com.xoxoton.svaped.ui.features.parking.ParkingViewModel
 
 import com.yandex.mapkit.mapview.MapView
@@ -20,7 +21,7 @@ import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.map.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MapActivity : AppCompatActivity() {
+class MapActivity : BaseActivity(0) {
 
     companion object {
         private const val MAPKIT_API_KEY = "f57d302b-98fd-45d5-94c4-4ef2110f517b"
@@ -45,6 +46,7 @@ class MapActivity : AppCompatActivity() {
 
         setContentView(R.layout.map)
         super.onCreate(savedInstanceState)
+        setupBottomNavigation()
 
         map_view.map.move(
             CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),

@@ -11,3 +11,8 @@
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
 
 -keep class com.xoxoton.svaped.data.model.** { *; }
+
+-keep public class com.google.android.material.bottomnavigation.BottomNavigationView { *; }
+-keep public class com.google.android.material.bottomnavigation.BottomNavigationMenuView { *; }
+-keep public class com.google.android.material.bottomnavigation.BottomNavigationPresenter { *; }
+-keep public class com.google.android.material.bottomnavigation.BottomNavigationItemView { *; }
