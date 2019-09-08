@@ -4,8 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.xoxoton.svaped.R
 import com.xoxoton.svaped.data.local.AuthPrefs
-import com.xoxoton.svaped.ui.features.login.LogInActivity
-import com.xoxoton.svaped.ui.features.main.MapActivity
+import com.xoxoton.svaped.ui.features.login.LoginActivity
+import com.xoxoton.svaped.ui.features.main.MainActivity
 import kotlinx.android.synthetic.main.bottom_navigation_view.*
 import org.koin.android.ext.android.inject
 
@@ -30,11 +30,11 @@ abstract class BaseActivity(val navNumber: Int) : AppCompatActivity() {
 
     private fun goToLogin() {
         authPrefs.dropToken()
-        goToSilent(LogInActivity::class.java)
+        goToSilent(LoginActivity::class.java)
     }
 
     private fun goToHome() {
-        goToSilent(MapActivity::class.java)
+        goToSilent(MainActivity::class.java)
     }
 
     fun setupBottomNavigation() {
