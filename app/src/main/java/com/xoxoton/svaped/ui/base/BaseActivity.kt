@@ -28,7 +28,7 @@ abstract class BaseActivity(val navNumber: Int) : AppCompatActivity() {
         finish()
     }
 
-    private fun goToLogin() {
+    fun goToLogin() {
         authPrefs.dropToken()
         goToSilent(LoginActivity::class.java)
     }
@@ -45,17 +45,9 @@ abstract class BaseActivity(val navNumber: Int) : AppCompatActivity() {
                 return@setOnNavigationItemSelectedListener true
             }
 
-            if (it.itemId == R.id.nav_item_log_out && navNumber == 1) {
-                return@setOnNavigationItemSelectedListener true
-            }
-
             when (it.itemId) {
                 R.id.nav_item_home -> {
                     goToHome()
-                    true
-                }
-                R.id.nav_item_log_out -> {
-                    goToLogin()
                     true
                 }
                 else -> false

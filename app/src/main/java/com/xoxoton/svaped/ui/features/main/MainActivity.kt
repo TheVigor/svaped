@@ -54,6 +54,10 @@ class MainActivity : BaseActivity(0) {
         super.onCreate(savedInstanceState)
         setupBottomNavigation()
 
+        iv_logout.setOnClickListener {
+            goToLogin()
+        }
+
         map_view.map.move(
             CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
             Animation(Animation.Type.SMOOTH, 0.1f),
