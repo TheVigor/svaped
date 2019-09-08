@@ -45,6 +45,8 @@ object Versions {
     val okHttp = "3.12.1"
 
     val koin = "2.0.0"
+
+    val bottomNavigationViewEx = "2.0.4"
 }
 
 object Libs {
@@ -65,6 +67,9 @@ object Libs {
 
     val koin = "org.koin:koin-android:${Versions.koin}"
     val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koin}"
+
+    val bottomNavigationViewEx =
+        "com.github.ittianyu:BottomNavigationViewEx:${Versions.bottomNavigationViewEx}"
 }
 
 object KotlinLibs {

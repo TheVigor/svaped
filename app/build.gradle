@@ -71,6 +71,8 @@ dependencies {
 
     implementation Libs.httpLoggingInterceptor
 
+    implementation Libs.bottomNavigationViewEx
+
 
     testImplementation TestLibs.junit
     androidTestImplementation TestLibs.androidTestRunner
