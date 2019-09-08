@@ -28,8 +28,8 @@ class BikeDO(
     fun getBikeCategory(): BikeCategory {
         val category = number.takeLast(4).toInt()
         return when (category) {
-            in 0..900 -> BikeCategory.GREEN
-            in 900..1000 -> BikeCategory.YELLOW
+            in 0..899 -> BikeCategory.GREEN
+            in 900..999 -> BikeCategory.YELLOW
             in 1000..9999 -> BikeCategory.RED
             else -> BikeCategory.GREEN
         }
