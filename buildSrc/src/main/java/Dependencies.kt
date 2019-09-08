@@ -40,7 +40,7 @@ object Versions {
     val retrofitGson = "2.5.0"
     val retrofitRxJava = "2.5.0"
 
-    val yandexMapKit = "3.3.1"
+    val yandexMapKit = "3.4.0"
 
     val okHttp = "3.12.1"
 
