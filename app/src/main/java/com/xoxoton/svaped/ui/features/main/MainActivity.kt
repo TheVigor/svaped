@@ -28,7 +28,7 @@ import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity(0),
+class MainActivity : BaseActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener,
     BottomNavigationView.OnNavigationItemReselectedListener {
 
@@ -65,6 +65,11 @@ class MainActivity : BaseActivity(0),
 
         initMainViewModel()
         initParkingViewModel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkAuth()
     }
 
     private fun initMapView() {

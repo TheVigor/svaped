@@ -6,10 +6,11 @@ import com.xoxoton.svaped.R
 import com.xoxoton.svaped.data.local.AuthPrefs
 import com.xoxoton.svaped.ui.features.login.LoginActivity
 import com.xoxoton.svaped.ui.features.main.MainActivity
+import com.xoxoton.svaped.ui.features.settings.SettingsActivity
 import kotlinx.android.synthetic.main.bottom_navigation_view.*
 import org.koin.android.ext.android.inject
 
-abstract class BaseActivity(val navNumber: Int) : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     val authPrefs: AuthPrefs by inject()
 
@@ -38,6 +39,6 @@ abstract class BaseActivity(val navNumber: Int) : AppCompatActivity() {
     }
 
     fun goToSettings() {
-
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 }

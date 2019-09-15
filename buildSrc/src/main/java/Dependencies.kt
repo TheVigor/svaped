@@ -27,6 +27,9 @@ object Versions {
     val appCompat = "1.0.2"
     val coreKtx = "1.0.2"
 
+    val preference = "1.1.0"
+    val fragment = "1.0.0"
+
     val constraintLayout = "1.1.3"
 
     val junit = "4.12"
@@ -46,7 +49,6 @@ object Versions {
 
     val koin = "2.0.0"
 
-    val bottomNavigationViewEx = "2.0.4"
 }
 
 object Libs {
@@ -83,6 +85,13 @@ object AndroidLibs {
 
     val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
     val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycleCompiler}"
+
+    val preference = "androidx.preference:preference:${Versions.preference}"
+    val preferenceKtx =  "androidx.preference:preference-ktx:${Versions.preference}"
+
+    val fragment = "androidx.fragment:fragment:${Versions.fragment}"
+    val fragmentKtx =  "androidx.fragment:fragment-ktx:${Versions.fragment}"
+
 }
 
 object TestLibs {
