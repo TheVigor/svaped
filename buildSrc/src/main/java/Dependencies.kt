@@ -12,7 +12,7 @@ object Releases {
 }
 
 object Versions {
-    val kotlin = "1.3.31"
+    val kotlin = "1.3.50"
     val gradle = "3.4.1"
 
     val compileSdk = 28
@@ -49,6 +49,8 @@ object Versions {
 
     val koin = "2.0.0"
 
+    val materialAbout = "0.2.3"
+
 }
 
 object Libs {
@@ -69,6 +71,8 @@ object Libs {
 
     val koin = "org.koin:koin-android:${Versions.koin}"
     val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koin}"
+
+    val materialAbout = "com.github.jrvansuita:MaterialAbout:${Versions.materialAbout}"
 
 }
 

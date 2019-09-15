@@ -77,6 +77,8 @@ dependencies {
     implementation Libs.koin
     implementation Libs.koinViewModel
 
+    implementation Libs.materialAbout
+
     implementation Libs.httpLoggingInterceptor
 
     testImplementation TestLibs.junit

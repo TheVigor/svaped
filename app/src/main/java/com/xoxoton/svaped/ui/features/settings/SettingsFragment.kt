@@ -1,9 +1,11 @@
 package com.xoxoton.svaped.ui.features.settings
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import com.xoxoton.svaped.R
 import com.xoxoton.svaped.ui.base.BaseActivity
+import com.xoxoton.svaped.ui.features.about.AboutActivity
 
 class SettingsFragment: PreferenceFragmentCompat() {
 
@@ -20,7 +22,10 @@ class SettingsFragment: PreferenceFragmentCompat() {
 
     override fun onPreferenceTreeClick(preference: androidx.preference.Preference?): Boolean {
         return when {
-            preference?.key == KEY_ABOUT_TAG -> true
+            preference?.key == KEY_ABOUT_TAG -> {
+                startActivity(Intent(requireActivity(), AboutActivity::class.java))
+                true
+            }
             preference?.key == KEY_LOG_OUT -> {
                 (requireActivity() as BaseActivity).apply {
                     authPrefs.dropToken()
