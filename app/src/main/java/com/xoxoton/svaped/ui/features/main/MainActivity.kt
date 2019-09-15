@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
@@ -20,6 +21,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.xoxoton.svaped.data.model.BikeCategory
 import com.xoxoton.svaped.ui.base.BaseActivity
+import com.xoxoton.svaped.ui.extensions.showToast
 import com.xoxoton.svaped.ui.features.login.LoginActivity
 import com.xoxoton.svaped.ui.features.parking.ParkingViewModel
 import com.xoxoton.svaped.util.DeviceUtil
@@ -63,8 +65,18 @@ class MainActivity : BaseActivity(),
 
         initMapView()
 
+        initRefreshFab()
+
         initMainViewModel()
         initParkingViewModel()
+    }
+
+    private fun initRefreshFab() {
+        refresh_fab.setOnClickListener {
+            map_view.map.mapObjects.clear()
+            mainViewModel.getBikesNearby()
+            parkingViewModel.getParkingPoints()
+        }
     }
 
     override fun onResume() {
@@ -153,8 +165,8 @@ class MainActivity : BaseActivity(),
         mainViewModel.loadingState.observe(this,
             Observer { state ->
                 state?.let {
-                    //progressBar.visibility = if (state) View.VISIBLE else View.GONE
-                    //showToast("Loading...")
+                    refresh_progress_bar.visibility = if (state) View.VISIBLE else View.GONE
+                    if (state) refresh_fab.hide() else refresh_fab.show()
                 }
             })
 
@@ -163,7 +175,7 @@ class MainActivity : BaseActivity(),
                 code?.let {
                     //emptyView.visibility = View.VISIBLE
                     //emptyView.setMode(code)
-                    //showToast("Error")
+                    showToast("Connection error...")
                 }
             })
 
@@ -181,8 +193,8 @@ class MainActivity : BaseActivity(),
         parkingViewModel.loadingState.observe(this,
             Observer { state ->
                 state?.let {
-                    //progressBar.visibility = if (state) View.VISIBLE else View.GONE
-                    //showToast("Loading...")
+                    refresh_progress_bar.visibility = if (state) View.VISIBLE else View.GONE
+                    if (state) refresh_fab.hide() else refresh_fab.show()
                 }
             })
 
@@ -191,7 +203,7 @@ class MainActivity : BaseActivity(),
                 code?.let {
                     //emptyView.visibility = View.VISIBLE
                     //emptyView.setMode(code)
-                    //showToast("Error")
+                    showToast("Connection error...")
                 }
             })
 
@@ -214,7 +226,6 @@ class MainActivity : BaseActivity(),
     }
 
     fun showBikes(bikes: List<BikeDO>) {
-        val imageProviderBike = ImageProvider.fromResource(this, R.mipmap.bike_marker)
 
         bikes.forEach {
             val p = Point(it.latitude, it.longitude)
@@ -235,6 +246,7 @@ class MainActivity : BaseActivity(),
     }
 
     fun showParkings(parkings: List<ParkingPointDO>) {
+
         val parkingProviderBike = ImageProvider.fromResource(this, R.mipmap.parking_marker)
 
         parkings.forEach {

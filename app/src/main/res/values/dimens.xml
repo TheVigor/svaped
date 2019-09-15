@@ -5,4 +5,5 @@
 
     <dimen name="settings_preference_divider_height">1px</dimen>
     <dimen name="settings_preference_divider_margin">14dp</dimen>
+    <dimen name="fab_size">50dp</dimen>
 </resources>
