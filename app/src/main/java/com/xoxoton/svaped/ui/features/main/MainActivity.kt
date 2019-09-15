@@ -73,15 +73,21 @@ class MainActivity : BaseActivity(),
 
     private fun initRefreshFab() {
         refresh_fab.setOnClickListener {
-            map_view.map.mapObjects.clear()
-            mainViewModel.getBikesNearby()
-            parkingViewModel.getParkingPoints()
+            refreshBikesAndParkings()
         }
+    }
+
+    private fun refreshBikesAndParkings() {
+        map_view.map.mapObjects.clear()
+        mainViewModel.getBikesNearby()
+        parkingViewModel.getParkingPoints()
     }
 
     override fun onResume() {
         super.onResume()
         checkAuth()
+
+        refreshBikesAndParkings()
     }
 
     private fun initMapView() {
@@ -186,7 +192,6 @@ class MainActivity : BaseActivity(),
                 }
             })
 
-        mainViewModel.getBikesNearby()
     }
 
     fun initParkingViewModel() {
@@ -214,7 +219,6 @@ class MainActivity : BaseActivity(),
                 }
             })
 
-        parkingViewModel.getParkingPoints()
     }
 
     fun getPlacemarkInfoByCategory(category: BikeCategory): Pair<ImageProvider, Float> {
