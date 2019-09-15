@@ -7,8 +7,20 @@ import com.xoxoton.svaped.ui.common.SingleLiveEvent
 import com.xoxoton.svaped.ui.error.EmptyViewMode
 import retrofit2.HttpException
 
-class MainViewModel(private val repository: MainRepository): BaseViewModel() {
+enum class MapMode {
+    ONLY_BIKES {
+        override fun nextMode() = ONLY_PARKINGS
+    },
+    ONLY_PARKINGS {
+        override fun nextMode() = ALL
+    },
+    ALL {
+        override fun nextMode() = ONLY_BIKES
+    };
+    abstract fun nextMode(): MapMode
+}
 
+class MainViewModel(private val repository: MainRepository): BaseViewModel() {
 
     private var _loadingState = SingleLiveEvent<Boolean>()
     val loadingState: LiveData<Boolean>
@@ -22,6 +34,14 @@ class MainViewModel(private val repository: MainRepository): BaseViewModel() {
     val contentState: LiveData<List<BikeDO>>
         get() = _contentState
 
+    private var _mapMode = SingleLiveEvent<MapMode>()
+    val mapMode: LiveData<MapMode>
+        get() = _mapMode
+
+    init {
+        _mapMode.value = MapMode.ALL
+    }
+
     fun getBikesNearby() {
         addDisposable(repository.getBikesNearby()
             .doOnSubscribe { _loadingState.value = true }
@@ -33,6 +53,10 @@ class MainViewModel(private val repository: MainRepository): BaseViewModel() {
                 }
                 _contentState.value = it
             }, { _errorState.value = EmptyViewMode.MODE_NO_BIKES }))
+    }
+
+    fun updateMode() {
+        _mapMode.value = _mapMode.value?.nextMode()
     }
 
 }

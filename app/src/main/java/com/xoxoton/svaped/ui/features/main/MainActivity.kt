@@ -65,21 +65,33 @@ class MainActivity : BaseActivity(),
 
         initMapView()
 
-        initRefreshFab()
-
         initMainViewModel()
         initParkingViewModel()
+
+        initChangeModeFab()
+
     }
 
-    private fun initRefreshFab() {
-        refresh_fab.setOnClickListener {
-            refreshBikesAndParkings()
+    private fun initChangeModeFab() {
+        change_mode_fab.setOnClickListener {
+            mainViewModel.updateMode()
         }
     }
+
 
     private fun refreshBikesAndParkings() {
         map_view.map.mapObjects.clear()
         mainViewModel.getBikesNearby()
+        parkingViewModel.getParkingPoints()
+    }
+
+    private fun refreshBikes() {
+        map_view.map.mapObjects.clear()
+        mainViewModel.getBikesNearby()
+    }
+
+    private fun refreshParkings() {
+        map_view.map.mapObjects.clear()
         parkingViewModel.getParkingPoints()
     }
 
@@ -172,7 +184,7 @@ class MainActivity : BaseActivity(),
             Observer { state ->
                 state?.let {
                     refresh_progress_bar.visibility = if (state) View.VISIBLE else View.GONE
-                    if (state) refresh_fab.hide() else refresh_fab.show()
+                    if (state) change_mode_fab.hide() else change_mode_fab.show()
                 }
             })
 
@@ -192,6 +204,16 @@ class MainActivity : BaseActivity(),
                 }
             })
 
+        mainViewModel.mapMode.observe(this,
+            Observer {
+                if (it != null) {
+                    when (it) {
+                        MapMode.ALL -> refreshBikesAndParkings()
+                        MapMode.ONLY_BIKES -> refreshBikes()
+                        MapMode.ONLY_PARKINGS -> refreshParkings()
+                    }
+                }
+            })
     }
 
     fun initParkingViewModel() {
@@ -199,7 +221,7 @@ class MainActivity : BaseActivity(),
             Observer { state ->
                 state?.let {
                     refresh_progress_bar.visibility = if (state) View.VISIBLE else View.GONE
-                    if (state) refresh_fab.hide() else refresh_fab.show()
+                    if (state) change_mode_fab.hide() else change_mode_fab.show()
                 }
             })
 
