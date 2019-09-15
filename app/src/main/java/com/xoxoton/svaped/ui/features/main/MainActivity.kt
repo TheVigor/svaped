@@ -52,25 +52,34 @@ class MainActivity : BaseActivity(0),
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        if (!authPrefs.isUserLoggedIn()) {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
-
-        MapKitFactory.setApiKey(MAPKIT_API_KEY)
-        MapKitFactory.initialize(this)
+        checkAuth()
+        initMapKit()
 
         setContentView(R.layout.activity_main)
         super.onCreate(savedInstanceState)
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.setTitle(R.string.app_name)
-        supportActionBar?.setIcon(R.mipmap.ic_launcher)
+        initToolbar()
+        initBottomNavigationView(savedInstanceState)
 
-//        val params = appbar.layoutParams
-//        params.topMargin = DeviceUtil.statusBarHeight(this)
+        initMapView()
 
+        initMainViewModel()
+        initParkingViewModel()
+    }
+
+    private fun initMapView() {
+        map_view.map.move(
+            CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
+            Animation(Animation.Type.SMOOTH, 0.1f),
+            null
+        )
+
+        greenBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_green_bike)
+        yellowBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_yellow_bike)
+        redBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_red_bike)
+    }
+
+    private fun initBottomNavigationView(savedInstanceState: Bundle?) {
         bottom_navigation_view.setOnNavigationItemSelectedListener(this)
         bottom_navigation_view.setOnNavigationItemReselectedListener(this)
 
@@ -80,19 +89,18 @@ class MainActivity : BaseActivity(0),
         when (itemId) {
             R.id.nav_item_home -> goToHome()
         }
+    }
 
-        map_view.map.move(
-            CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
-            Animation(Animation.Type.SMOOTH, 0.1f),
-            null
-        )
 
-        initMainViewModel()
-        initParkingViewModel()
+    private fun initMapKit() {
+        MapKitFactory.setApiKey(MAPKIT_API_KEY)
+        MapKitFactory.initialize(this)
+    }
 
-        greenBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_green_bike)
-        yellowBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_yellow_bike)
-        redBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_red_bike)
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setTitle(R.string.app_name)
+        supportActionBar?.setIcon(R.mipmap.ic_launcher)
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {

@@ -13,6 +13,13 @@ abstract class BaseActivity(val navNumber: Int) : AppCompatActivity() {
 
     val authPrefs: AuthPrefs by inject()
 
+    fun checkAuth() {
+        if (!authPrefs.isUserLoggedIn()) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+    }
+
     private fun goToSilent(activity: Class<*>) {
         val intent = Intent(this, activity)
         intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
