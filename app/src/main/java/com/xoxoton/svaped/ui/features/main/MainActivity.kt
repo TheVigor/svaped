@@ -2,7 +2,12 @@ package com.xoxoton.svaped.ui.features.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import com.xoxoton.svaped.R
 import com.xoxoton.svaped.data.model.BikeDO
 import com.xoxoton.svaped.data.model.ParkingPointDO
@@ -12,16 +17,20 @@ import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import androidx.lifecycle.Observer
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.xoxoton.svaped.data.model.BikeCategory
 import com.xoxoton.svaped.ui.base.BaseActivity
 import com.xoxoton.svaped.ui.features.login.LoginActivity
 import com.xoxoton.svaped.ui.features.parking.ParkingViewModel
+import com.xoxoton.svaped.util.DeviceUtil
 
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity(0) {
+class MainActivity : BaseActivity(0),
+    BottomNavigationView.OnNavigationItemSelectedListener,
+    BottomNavigationView.OnNavigationItemReselectedListener {
 
     companion object {
         private const val MAPKIT_API_KEY = "f57d302b-98fd-45d5-94c4-4ef2110f517b"
@@ -31,6 +40,7 @@ class MainActivity : BaseActivity(0) {
         private const val YELLOW_CATEGORY_ZINDEX = 20f
         private const val RED_CATEGORY_ZINDEX = 30f
 
+        private const val ARG_BOTTOM_BAR_POSITION = "pos"
     }
 
     private val mainViewModel: MainViewModel by viewModel()
@@ -39,6 +49,7 @@ class MainActivity : BaseActivity(0) {
     private lateinit var greenBikeIcon: ImageProvider
     private lateinit var yellowBikeIcon: ImageProvider
     private lateinit var redBikeIcon: ImageProvider
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -52,10 +63,22 @@ class MainActivity : BaseActivity(0) {
 
         setContentView(R.layout.activity_main)
         super.onCreate(savedInstanceState)
-        setupBottomNavigation()
 
-        iv_logout.setOnClickListener {
-            goToLogin()
+        setSupportActionBar(toolbar)
+        supportActionBar?.setTitle(R.string.app_name)
+        supportActionBar?.setIcon(R.mipmap.ic_launcher)
+
+//        val params = appbar.layoutParams
+//        params.topMargin = DeviceUtil.statusBarHeight(this)
+
+        bottom_navigation_view.setOnNavigationItemSelectedListener(this)
+        bottom_navigation_view.setOnNavigationItemReselectedListener(this)
+
+        val itemId: Int = savedInstanceState?.getInt(ARG_BOTTOM_BAR_POSITION) ?: 0
+        bottom_navigation_view.selectedItemId = itemId
+
+        when (itemId) {
+            R.id.nav_item_home -> goToHome()
         }
 
         map_view.map.move(
@@ -72,6 +95,11 @@ class MainActivity : BaseActivity(0) {
         redBikeIcon = ImageProvider.fromResource(this, R.mipmap.ic_red_bike)
     }
 
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        outState.putInt(ARG_BOTTOM_BAR_POSITION, bottom_navigation_view.selectedItemId)
+        super.onSaveInstanceState(outState, outPersistentState)
+    }
+
     override fun onStart() {
         super.onStart()
         MapKitFactory.getInstance().onStart()
@@ -83,6 +111,30 @@ class MainActivity : BaseActivity(0) {
         MapKitFactory.getInstance().onStop()
         super.onStop()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.item_settings) {
+            goToSettings()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_item_home -> goToHome()
+        }
+
+        return true
+    }
+
+    override fun onNavigationItemReselected(item: MenuItem) {
+    }
+
 
     fun initMainViewModel() {
         mainViewModel.loadingState.observe(this,

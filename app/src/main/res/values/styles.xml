@@ -1,15 +1,31 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <!--Colors-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">?colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:listDivider">@color/dividerColor</item>
+        <item name="android:divider">@color/dividerColor</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="android:shadowColor">@color/shadowColor</item>
+
+        <!--Styles-->
+<!--        <item name="switchStyle">@style/Widget.Moviemade.Switch</item>-->
+<!--        <item name="materialCardViewStyle">@style/Widget.Moviemade.Card</item>-->
+
+        <!--<item title="android:windowContentOverlay">@null</item>-->
     </style>
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+
+    <!--MainActivity Theme-->
+    <style name="AppTheme.TransparentStatusBar" parent="AppTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 </resources>

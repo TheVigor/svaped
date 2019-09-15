@@ -13,13 +13,6 @@ abstract class BaseActivity(val navNumber: Int) : AppCompatActivity() {
 
     val authPrefs: AuthPrefs by inject()
 
-    override fun onResume() {
-        super.onResume()
-        if (bottom_navigation_view != null) {
-            bottom_navigation_view.menu.getItem(navNumber).isChecked = true
-        }
-    }
-
     private fun goToSilent(activity: Class<*>) {
         val intent = Intent(this, activity)
         intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
@@ -33,26 +26,11 @@ abstract class BaseActivity(val navNumber: Int) : AppCompatActivity() {
         goToSilent(LoginActivity::class.java)
     }
 
-    private fun goToHome() {
+    fun goToHome() {
         goToSilent(MainActivity::class.java)
     }
 
-    fun setupBottomNavigation() {
-        bottom_navigation_view.setIconSize(29f, 29f)
+    fun goToSettings() {
 
-        bottom_navigation_view.setOnNavigationItemSelectedListener {
-            if (it.itemId == R.id.nav_item_home && navNumber == 0) {
-                return@setOnNavigationItemSelectedListener true
-            }
-
-            when (it.itemId) {
-                R.id.nav_item_home -> {
-                    goToHome()
-                    true
-                }
-                else -> false
-            }
-        }
     }
-
 }
