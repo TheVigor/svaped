@@ -28,4 +28,15 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="AppTheme.FloatingActionButton" parent="AppTheme">
+        <item name="android:layout_width">@dimen/fab_size</item>
+        <item name="android:layout_height">@dimen/fab_size</item>
+        <item name="android:layout_margin">15dp</item>
+
+        <item name="fabCustomSize">@dimen/fab_size</item>
+        <item name="backgroundTint">@color/transparentColorAccent</item>
+        <item name="elevation">0dp</item>
+        <item name="pressedTranslationZ">0dp</item>
+    </style>
+
 </resources>
