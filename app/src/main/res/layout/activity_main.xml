@@ -28,7 +28,7 @@
             android:id="@+id/map_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+            app:layout_constraintBottom_toBottomOf="@id/bottom_navigation_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appbar"/>
@@ -49,12 +49,13 @@
             android:src="@drawable/ic_mode"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view" />
-    
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_navigation_height"
             app:menu="@menu/bottom_navigation_menu"
+            android:background="@color/transparentColorPrimaryDark"
             app:labelVisibilityMode="labeled"
             app:itemTextColor="@drawable/bottom_navigation_selector"
             app:itemIconTint="@drawable/bottom_navigation_selector"

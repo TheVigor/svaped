@@ -5,6 +5,7 @@
     <color name="colorAccent">#ff5252</color>
 
     <color name="transparentColorAccent">#ccff5252</color>
+    <color name="transparentColorPrimaryDark">#cc202020</color>
 
     <color name="whiteish">#d2c2fd</color>
 
