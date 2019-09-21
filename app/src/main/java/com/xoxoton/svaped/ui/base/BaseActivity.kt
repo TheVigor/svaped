@@ -1,11 +1,15 @@
 package com.xoxoton.svaped.ui.base
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.xoxoton.svaped.R
 import com.xoxoton.svaped.data.local.AuthPrefs
+import com.xoxoton.svaped.data.model.ParkingPointDO
 import com.xoxoton.svaped.ui.features.login.LoginActivity
 import com.xoxoton.svaped.ui.features.main.MainActivity
+import com.xoxoton.svaped.ui.features.parking.ParkingBottomSheetFragment
+import com.xoxoton.svaped.ui.features.parking.ParkingBottomSheetFragment.Companion.PARKING_TAG
 import com.xoxoton.svaped.ui.features.settings.SettingsActivity
 import kotlinx.android.synthetic.main.bottom_navigation_view.*
 import org.koin.android.ext.android.inject
@@ -19,6 +23,15 @@ abstract class BaseActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+    }
+
+    fun showParkingInfoDialog(parkingPoint: ParkingPointDO) {
+        val bundle = Bundle()
+        bundle.putParcelable(PARKING_TAG, parkingPoint)
+
+        val bottomSheetFragment = ParkingBottomSheetFragment()
+        bottomSheetFragment.arguments = bundle
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 
     private fun goToSilent(activity: Class<*>) {

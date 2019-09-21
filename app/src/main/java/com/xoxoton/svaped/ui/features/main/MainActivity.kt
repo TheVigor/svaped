@@ -23,6 +23,8 @@ import com.xoxoton.svaped.data.model.BikeCategory
 import com.xoxoton.svaped.ui.base.BaseActivity
 import com.xoxoton.svaped.ui.extensions.showToast
 import com.xoxoton.svaped.ui.features.login.LoginActivity
+import com.xoxoton.svaped.ui.features.parking.ParkingBottomSheetFragment
+import com.xoxoton.svaped.ui.features.parking.ParkingBottomSheetFragment.Companion.PARKING_TAG
 import com.xoxoton.svaped.ui.features.parking.ParkingViewModel
 import com.xoxoton.svaped.util.DeviceUtil
 
@@ -266,10 +268,8 @@ class MainActivity : BaseActivity(),
         parkings.forEach {
             val p = Point(it.latitude, it.longitude)
             val parkingMapObject = map_view.map.mapObjects.addPlacemark(p, parkingProviderBike)
-            parkingMapObject.addTapListener { mapObject, point ->
-                val name = it.name
-                val note = it.note
-                Toast.makeText(this.applicationContext, "Name : $name\nNote : $note", Toast.LENGTH_LONG).show()
+            parkingMapObject.addTapListener { _, _ ->
+                showParkingInfoDialog(it)
                 true
             }
         }

@@ -51,6 +51,7 @@ object Versions {
 
     val materialAbout = "0.2.3"
 
+    val glide = "4.9.0"
 }
 
 object Libs {
@@ -74,6 +75,8 @@ object Libs {
 
     val materialAbout = "com.github.jrvansuita:MaterialAbout:${Versions.materialAbout}"
 
+    val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 }
 
 object KotlinLibs {

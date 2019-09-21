@@ -16,3 +16,10 @@
 -keep public class com.google.android.material.bottomnavigation.BottomNavigationMenuView { *; }
 -keep public class com.google.android.material.bottomnavigation.BottomNavigationPresenter { *; }
 -keep public class com.google.android.material.bottomnavigation.BottomNavigationItemView { *; }
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}

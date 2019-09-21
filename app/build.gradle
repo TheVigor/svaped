@@ -79,6 +79,9 @@ dependencies {
 
     implementation Libs.materialAbout
 
+    implementation Libs.glide
+    annotationProcessor Libs.glideCompiler
+
     implementation Libs.httpLoggingInterceptor
 
     testImplementation TestLibs.junit

@@ -39,4 +39,22 @@
         <item name="pressedTranslationZ">0dp</item>
     </style>
 
+
+    <style name="AppTheme.BottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+
+        <item name="android:colorBackground">@color/backgroundColor</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:listDivider">@color/dividerColor</item>
+        <item name="android:divider">@color/dividerColor</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="android:shadowColor">@color/shadowColor</item>
+    </style>
+
+
 </resources>
