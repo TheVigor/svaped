@@ -60,7 +60,6 @@ class MainActivity : BaseActivity(),
         setContentView(R.layout.activity_main)
         super.onCreate(savedInstanceState)
 
-        initToolbar()
         initBottomNavigationView(savedInstanceState)
 
         initMapView()
@@ -69,7 +68,14 @@ class MainActivity : BaseActivity(),
         initParkingViewModel()
 
         initChangeModeFab()
+        initSettingsFab()
 
+    }
+
+    private fun initSettingsFab() {
+        settings_fab.setOnClickListener {
+            goToSettings()
+        }
     }
 
     private fun initChangeModeFab() {
@@ -132,12 +138,6 @@ class MainActivity : BaseActivity(),
         MapKitFactory.initialize(this)
     }
 
-    private fun initToolbar() {
-        setSupportActionBar(toolbar)
-        supportActionBar?.setTitle(R.string.app_name)
-        supportActionBar?.setIcon(R.mipmap.ic_launcher)
-    }
-
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         outState.putInt(ARG_BOTTOM_BAR_POSITION, bottom_navigation_view.selectedItemId)
         super.onSaveInstanceState(outState, outPersistentState)
@@ -153,18 +153,6 @@ class MainActivity : BaseActivity(),
         map_view.onStop()
         MapKitFactory.getInstance().onStop()
         super.onStop()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.item_settings) {
-            goToSettings()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
